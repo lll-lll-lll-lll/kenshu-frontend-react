@@ -6,7 +6,7 @@ export const fetchTasks = async () => {
   return res;
 };
 
-export const postTask = async () => {
+export const createTask = async () => {
   await fetch("http://localhost:8000/api/tasks", {
     method: "POST",
     headers: {

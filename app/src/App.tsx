@@ -4,7 +4,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
-import { fetchTasks, postTask } from "./api/task";
+import { fetchTasks, createTask } from "./api/task";
 import TaskButton from "./components/TaskButton";
 import Task from "./components/Task";
 
@@ -21,7 +21,7 @@ export const App = () => {
 const MainPage: React.FC = () => {
   const tasks = useQuery({ queryKey: ["tasks"], queryFn: fetchTasks });
   const createTaskMutation = useMutation({
-    mutationFn: postTask,
+    mutationFn: createTask,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
     },
