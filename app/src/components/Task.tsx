@@ -1,7 +1,9 @@
+import { TaskForm } from "./TaskForm";
+
 const Task: React.FC<{ task: TaskData }> = ({ task }) => {
   return (
     <>
-      <h2>{task.title}</h2>
+      <TaskForm task={task} />
       <p>{task.createdAt}</p>
       <p>{task.finishedAt}</p>
     </>
