@@ -1,5 +1,5 @@
 type TaskManagementButtonProps = {
-  type: "button" | "submit"; // ボタンの種類
+  type: "button" | "submit";
   onClick: () => void; // 作成、更新、削除の処理を行う関数
   children: React.ReactNode;
 };
