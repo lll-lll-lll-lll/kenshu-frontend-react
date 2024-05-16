@@ -34,11 +34,11 @@ const MainPage: React.FC = () => {
         {tasks.data?.tasks.map((task) => (
           <li key={task.id}>
             <Task task={task} />
-            <TaskButton onClick={createTaskMutation.mutate} type="button">
-              タスクを作成する
-            </TaskButton>
           </li>
         ))}
+        <TaskButton onClick={createTaskMutation.mutate} type="button">
+          タスクを作成する
+        </TaskButton>
       </ul>
     </div>
   );
