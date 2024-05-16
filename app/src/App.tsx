@@ -27,6 +27,8 @@ const MainPage: React.FC = () => {
   return (
     <div>
       <ul>
+        {tasks.isLoading && <p>ロード中です</p>}
+        {tasks.isError && <p>再度リロードしてください</p>}
         {tasks.data?.tasks.map((task) => (
           <li key={task.id}>
             <Task task={task} />
