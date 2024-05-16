@@ -61,10 +61,9 @@ export const TaskForm: React.FC<{ task: TaskData }> = ({ task }) => {
       </div>
       <form.Subscribe
         selector={(state) => [state.canSubmit]}
-        children={([canSubmit]) => (
+        children={() => (
           <TaskButton
             type="submit"
-            disabled={!canSubmit}
             onClick={() => {
               setIsEditing(!isEditing);
             }}
