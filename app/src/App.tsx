@@ -24,7 +24,7 @@ const MainPage: React.FC = () => {
   const { createTaskMutation } = useTaskMutation();
 
   return (
-    <ul>
+    <ul className="flex-row">
       {tasks.isLoading && <p>ロード中です</p>}
       {tasks.isError && <p>再度リロードしてください</p>}
       {tasks.data?.tasks.map((task) => (
