@@ -36,7 +36,6 @@ const TaskList = () => {
   const tasks = useQuery({
     queryKey: ["tasks"],
     queryFn: fetchTasks,
-    suspense: true,
   });
   return (
     <ul className="flex-row">
