@@ -3,7 +3,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
-import { fetchTasks, createTask } from "./api/task";
+import { fetchTasks } from "./api/task";
 import TaskButton from "./components/TaskButton";
 import Task from "./components/Task";
 import { useTaskMutation } from "./hook/task";
