@@ -1,24 +1,16 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { updateTask } from "../api/task";
 import TaskButton from "./TaskButton";
+import { useTaskMutation } from "../hook/task";
 
 export const TaskForm: React.FC<{ task: TaskData }> = ({ task }) => {
-  const queryClient = useQueryClient();
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(task.title);
+  const { updateTaskMutation } = useTaskMutation();
   const onClickSubmit = (e) => {
     e.preventDefault();
     setIsEditing(!isEditing);
     updateTaskMutation.mutate({ id: task.id, title: title });
   };
-  const updateTaskMutation = useMutation({
-    mutationFn: (formData: { id: string; title: string }) =>
-      updateTask(formData.id, formData.title),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["tasks"] });
-    },
-  });
 
   return (
     <form
