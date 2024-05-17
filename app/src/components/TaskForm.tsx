@@ -8,8 +8,8 @@ export const TaskForm: React.FC<{ task: TaskData }> = ({ task }) => {
   const { updateTaskMutation } = useTaskMutation();
   const onClickSubmit = (e) => {
     e.preventDefault();
-    setIsEditing(!isEditing);
     updateTaskMutation.mutate({ id: task.id, title: title });
+    setIsEditing(!isEditing);
   };
 
   return (
