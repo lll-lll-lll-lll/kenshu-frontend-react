@@ -1,32 +1,19 @@
 import { useState } from "react";
-import TaskButton from "./TaskButton";
 import { useTaskMutation } from "../hook/task";
+import TaskDoneButton from "./TaskDoneButton";
+import TaskEditButton from "./TaskEditButton";
 
 export const TaskForm: React.FC<{ task: TaskData }> = ({ task }) => {
-  const [isDone, setIsDone] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [isDone, setIsDone] = useState(false);
   const [title, setTitle] = useState(task.title);
-  const { updateTaskMutation, updateTaskStatusMutation } = useTaskMutation();
+  const { updateTaskMutation } = useTaskMutation();
   function onClickSubmit(e) {
     e.preventDefault();
     updateTaskMutation
       .mutateAsync({ id: task.id, title: title })
       .then(() => {
         setIsEditing(!isEditing);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }
-
-  function onClickDoneTask() {
-    updateTaskStatusMutation
-      .mutateAsync({
-        id: task.id,
-        finishedAt: new Date().toISOString(),
-      })
-      .then(() => {
-        setIsDone(!isDone);
       })
       .catch((e) => {
         console.log(e);
@@ -40,49 +27,22 @@ export const TaskForm: React.FC<{ task: TaskData }> = ({ task }) => {
           onClickSubmit(e);
         }}
       >
-        {isEditing ? (
-          <input
-            id={task.id}
-            name={"task"}
-            value={title}
-            onChange={(e) => {
-              setTitle(e.target.value);
-            }}
+        {!isDone ? (
+          <TaskEditButton
+            task={task}
+            taskTitle={title}
+            setIsEditing={setIsEditing}
+            setTitle={setTitle}
+            isEditing={isEditing}
           />
-        ) : (
-          <>{title}</>
-        )}
-        {isEditing ? <TaskButton type="submit">保存</TaskButton> : <></>}
-        {!isEditing ? (
-          <TaskButton
-            type="button"
-            onClick={() => {
-              setIsEditing(!isEditing);
-            }}
-            style="bg-blue-600 font-medium p-3 rounded-lg text-white"
-          >
-            編集
-          </TaskButton>
         ) : (
           <></>
         )}
       </form>
-      {!isDone ? (
-        <TaskButton type="button" onClick={onClickDoneTask}>
-          完了
-        </TaskButton>
+      {!isEditing ? (
+        <TaskDoneButton isDone={isDone} setIsDone={setIsDone} task={task} />
       ) : (
-        <>
-          <p>{task.finishedAt}</p>
-          <TaskButton
-            type="button"
-            onClick={() => {
-              setIsDone(!isDone);
-            }}
-          >
-            タスクを元に戻す
-          </TaskButton>
-        </>
+        <></>
       )}
     </div>
   );
