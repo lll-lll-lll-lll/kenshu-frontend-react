@@ -8,12 +8,14 @@ import Task from "./components/Task";
 import TaskCreateButton from "./components/TaskCreateButton";
 import { Suspense } from "react";
 import Loading from "./components/Loading";
+import TopPage from "./components/TopPage";
 
 const queryClient = new QueryClient();
 
 export const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
+      <TopPage />
       <Suspense fallback={<Loading />}>
         <MainPage />
       </Suspense>
@@ -27,11 +29,9 @@ const MainPage: React.FC = () => {
     queryFn: fetchTasks,
     suspense: true,
   });
-
   return (
-    <div>
+    <>
       <TaskCreateButton />
-      <h1>Todo List</h1>
       <ul className="flex-row">
         {tasks.data?.tasks
           .slice()
@@ -42,6 +42,6 @@ const MainPage: React.FC = () => {
             </li>
           ))}
       </ul>
-    </div>
+    </>
   );
 };
