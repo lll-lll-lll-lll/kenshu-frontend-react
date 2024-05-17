@@ -6,6 +6,8 @@ import {
 import { fetchTasks } from "./api/task";
 import Task from "./components/Task";
 import TaskCreateButton from "./components/TaskCreateButton";
+import { Suspense } from "react";
+import Loading from "./components/Loading";
 
 const queryClient = new QueryClient();
 
@@ -25,17 +27,17 @@ const MainPage: React.FC = () => {
       <TaskCreateButton />
       <h1>Todo List</h1>
       <ul className="flex-row">
-        {tasks.isLoading && <p>ロード中です</p>}
         {tasks.isError && <p>再度リロードしてください</p>}
-
-        {tasks.data?.tasks
-          .slice()
-          .reverse()
-          .map((task) => (
-            <li key={task.id}>
-              <Task task={task} />
-            </li>
-          ))}
+        <Suspense fallback={<Loading />}>
+          {tasks.data?.tasks
+            .slice()
+            .reverse()
+            .map((task) => (
+              <li key={task.id}>
+                <Task task={task} />
+              </li>
+            ))}
+        </Suspense>
       </ul>
     </div>
   );
