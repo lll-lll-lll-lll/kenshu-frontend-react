@@ -6,6 +6,9 @@ import {
 import { fetchTasks } from "./api/task";
 import Task from "./components/Task";
 import TaskCreateButton from "./components/TaskCreateButton";
+import { Suspense } from "react";
+import Loading from "./components/Loading";
+import Title from "./components/Title";
 
 const queryClient = new QueryClient();
 
@@ -18,25 +21,32 @@ export const App = () => {
 };
 
 const MainPage: React.FC = () => {
-  const tasks = useQuery({ queryKey: ["tasks"], queryFn: fetchTasks });
-
   return (
-    <div>
+    <>
       <TaskCreateButton />
-      <h1>Todo List</h1>
-      <ul className="flex-row">
-        {tasks.isLoading && <p>ロード中です</p>}
-        {tasks.isError && <p>再度リロードしてください</p>}
+      <Title />
+      <Suspense fallback={<Loading />}>
+        <TaskList />
+      </Suspense>
+    </>
+  );
+};
 
-        {tasks.data?.tasks
-          .slice()
-          .reverse()
-          .map((task) => (
-            <li key={task.id}>
-              <Task task={task} />
-            </li>
-          ))}
-      </ul>
-    </div>
+const TaskList = () => {
+  const tasks = useQuery({
+    queryKey: ["tasks"],
+    queryFn: fetchTasks,
+  });
+  return (
+    <ul className="flex-row">
+      {tasks.data?.tasks
+        .slice()
+        .reverse()
+        .map((task) => (
+          <li key={task.id}>
+            <Task task={task} />
+          </li>
+        ))}
+    </ul>
   );
 };
