@@ -24,8 +24,8 @@ const MainPage: React.FC = () => {
   return (
     <>
       <TaskCreateButton />
+      <Title />
       <Suspense fallback={<Loading />}>
-        <Title />
         <TaskList />
       </Suspense>
     </>
