@@ -39,7 +39,7 @@ const TaskDoneButton: React.FC<Props> = ({ task, isDone, setIsDone }) => {
             }}
             style="bg-gray-600 font-medium p-3 rounded-lg text-white"
           >
-            タスクを元に戻す
+            未完了にする
           </TaskButton>
         </>
       )}
