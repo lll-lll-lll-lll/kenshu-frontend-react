@@ -1,9 +1,12 @@
 import { useState } from "react";
-import TaskButton from "./TaskButton";
 import { useTaskMutation } from "../hook/task";
+import TaskDoneButton from "./TaskDoneButton";
+import TaskEditButton from "./TaskEditButton";
+import TaskDeleteButton from "./TaskDeleteButton";
 
 export const TaskForm: React.FC<{ task: TaskData }> = ({ task }) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [isDone, setIsDone] = useState(false);
   const [title, setTitle] = useState(task.title);
   const { updateTaskMutation } = useTaskMutation();
   function onClickSubmit(e) {
@@ -19,36 +22,30 @@ export const TaskForm: React.FC<{ task: TaskData }> = ({ task }) => {
   }
 
   return (
-    <form
-      onSubmit={(e) => {
-        onClickSubmit(e);
-      }}
-    >
-      {isEditing ? (
-        <input
-          id={task.id}
-          name={"task"}
-          value={title}
-          onChange={(e) => {
-            setTitle(e.target.value);
-          }}
-        />
-      ) : (
-        title
-      )}
-      {isEditing ? <TaskButton type="submit">保存</TaskButton> : <></>}
+    <div className="flex space-x-3">
+      <form
+        onSubmit={(e) => {
+          onClickSubmit(e);
+        }}
+      >
+        {!isDone ? (
+          <TaskEditButton
+            task={task}
+            taskTitle={title}
+            setIsEditing={setIsEditing}
+            setTitle={setTitle}
+            isEditing={isEditing}
+          />
+        ) : (
+          <></>
+        )}
+      </form>
       {!isEditing ? (
-        <TaskButton
-          type="button"
-          onClick={() => {
-            setIsEditing(!isEditing);
-          }}
-        >
-          編集
-        </TaskButton>
+        <TaskDoneButton isDone={isDone} setIsDone={setIsDone} task={task} />
       ) : (
         <></>
       )}
-    </form>
+      <TaskDeleteButton id={task.id} />
+    </div>
   );
 };
