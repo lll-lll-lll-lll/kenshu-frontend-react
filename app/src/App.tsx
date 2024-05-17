@@ -1,6 +1,5 @@
 import {
   useQuery,
-  useMutation,
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
@@ -32,7 +31,11 @@ const MainPage: React.FC = () => {
           <Task task={task} />
         </li>
       ))}
-      <TaskButton onClick={createTaskMutation.mutate} type="button">
+      <TaskButton
+        onClick={createTaskMutation.mutate}
+        type="button"
+        style="bg-red-600 font-medium p-3 rounded-lg text-white"
+      >
         タスクを作成する
       </TaskButton>
     </ul>

@@ -59,6 +59,7 @@ export const TaskForm: React.FC<{ task: TaskData }> = ({ task }) => {
             onClick={() => {
               setIsEditing(!isEditing);
             }}
+            style="bg-blue-600 font-medium p-3 rounded-lg text-white"
           >
             編集
           </TaskButton>
