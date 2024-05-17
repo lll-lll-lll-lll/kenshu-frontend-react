@@ -14,3 +14,13 @@ export const createTask = async () => {
     },
   });
 };
+
+export const updateTask = async (id: string, title: string) => {
+  await fetch(`http://localhost:8000/api/tasks/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ title }),
+  });
+};

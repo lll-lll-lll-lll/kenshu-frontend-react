@@ -26,6 +26,7 @@ const MainPage: React.FC = () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
     },
   });
+
   return (
     <div>
       <ul>
