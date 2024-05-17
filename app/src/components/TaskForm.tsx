@@ -6,9 +6,9 @@ export const TaskForm: React.FC<{ task: TaskData }> = ({ task }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(task.title);
   const { updateTaskMutation } = useTaskMutation();
-  async function onClickSubmit(e) {
+  function onClickSubmit(e) {
     e.preventDefault();
-    await updateTaskMutation
+    updateTaskMutation
       .mutateAsync({ id: task.id, title: title })
       .then(() => {
         setIsEditing(!isEditing);
