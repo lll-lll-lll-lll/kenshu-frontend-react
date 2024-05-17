@@ -1,4 +1,5 @@
 export const fetchTasks = async () => {
+  await new Promise((r) => setTimeout(r, 1000));
   const res: { tasks: TaskData[] } = await fetch(
     "http://localhost:8000/api/tasks",
     { method: "GET", headers: { "Content-Type": " application/json" } }
