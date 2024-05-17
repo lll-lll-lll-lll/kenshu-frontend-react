@@ -34,3 +34,12 @@ export const updateTaskStatus = async (id: string, finishedAt: string) => {
     body: JSON.stringify({ finishedAt }),
   });
 };
+
+export const deleteTask = async (id: string) => {
+  await fetch(`http://localhost:8000/api/tasks/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+};
