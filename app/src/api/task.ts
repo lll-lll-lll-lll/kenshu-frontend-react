@@ -24,3 +24,13 @@ export const updateTask = async (id: string, title: string) => {
     body: JSON.stringify({ title }),
   });
 };
+
+export const updateTaskStatus = async (id: string, finishedAt: string) => {
+  await fetch(`http://localhost:8000/api/tasks/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ finishedAt }),
+  });
+};
