@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useTaskMutation } from "../hook/task";
 import TaskDoneButton from "./TaskDoneButton";
 import TaskEditButton from "./TaskEditButton";
+import TaskDeleteButton from "./TaskDelete";
 
 export const TaskForm: React.FC<{ task: TaskData }> = ({ task }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -44,6 +45,7 @@ export const TaskForm: React.FC<{ task: TaskData }> = ({ task }) => {
       ) : (
         <></>
       )}
+      <TaskDeleteButton id={task.id} />
     </div>
   );
 };
