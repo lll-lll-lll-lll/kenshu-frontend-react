@@ -9,9 +9,7 @@ const TaskButton: React.FC<TaskManagementButtonProps> = (props) => {
     <button
       className="bg-blue-600 font-medium p-3 rounded-sm text-white"
       type={props.type}
-      onClick={() => {
-        props.onClick();
-      }}
+      onClick={props.onClick}
     >
       {props.children}
     </button>

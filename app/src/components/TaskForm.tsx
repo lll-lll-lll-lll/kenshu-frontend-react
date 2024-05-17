@@ -5,12 +5,13 @@ import TaskButton from "./TaskButton";
 
 export const TaskForm: React.FC<{ task: TaskData }> = ({ task }) => {
   const queryClient = useQueryClient();
-  const onClickSubmit = (e) => {
-    e.preventDefault();
-    updateTaskMutation.mutate({ id: task.id, title: task.title });
-  };
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(task.title);
+  const onClickSubmit = (e) => {
+    e.preventDefault();
+    setIsEditing(!isEditing);
+    updateTaskMutation.mutate({ id: task.id, title: title });
+  };
   const updateTaskMutation = useMutation({
     mutationFn: (formData: { id: string; title: string }) =>
       updateTask(formData.id, formData.title),
@@ -37,16 +38,8 @@ export const TaskForm: React.FC<{ task: TaskData }> = ({ task }) => {
       ) : (
         title
       )}
-      {isEditing ? (
-        <TaskButton
-          type="submit"
-          onClick={() => {
-            setIsEditing(!isEditing);
-          }}
-        >
-          保存
-        </TaskButton>
-      ) : (
+      {isEditing ? <TaskButton type="submit">保存</TaskButton> : <></>}
+      {!isEditing ? (
         <TaskButton
           type="button"
           onClick={() => {
@@ -55,6 +48,8 @@ export const TaskForm: React.FC<{ task: TaskData }> = ({ task }) => {
         >
           編集
         </TaskButton>
+      ) : (
+        <></>
       )}
     </form>
   );
