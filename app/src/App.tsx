@@ -8,16 +8,14 @@ import Task from "./components/Task";
 import TaskCreateButton from "./components/TaskCreateButton";
 import { Suspense } from "react";
 import Loading from "./components/Loading";
-import TopPage from "./components/TopPage";
+import Title from "./components/Title";
 
 const queryClient = new QueryClient();
 
 export const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <Suspense fallback={<Loading />}>
-        <MainPage />
-      </Suspense>
+      <MainPage />
     </QueryClientProvider>
   );
 };
@@ -26,8 +24,10 @@ const MainPage: React.FC = () => {
   return (
     <>
       <TaskCreateButton />
-      <TopPage />
-      <TaskList />
+      <Suspense fallback={<Loading />}>
+        <Title />
+        <TaskList />
+      </Suspense>
     </>
   );
 };
