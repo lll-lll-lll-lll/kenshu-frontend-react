@@ -15,7 +15,6 @@ const queryClient = new QueryClient();
 export const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <TopPage />
       <Suspense fallback={<Loading />}>
         <MainPage />
       </Suspense>
@@ -24,24 +23,31 @@ export const App = () => {
 };
 
 const MainPage: React.FC = () => {
+  return (
+    <>
+      <TaskCreateButton />
+      <TopPage />
+      <TaskList />
+    </>
+  );
+};
+
+const TaskList = () => {
   const tasks = useQuery({
     queryKey: ["tasks"],
     queryFn: fetchTasks,
     suspense: true,
   });
   return (
-    <>
-      <TaskCreateButton />
-      <ul className="flex-row">
-        {tasks.data?.tasks
-          .slice()
-          .reverse()
-          .map((task) => (
-            <li key={task.id}>
-              <Task task={task} />
-            </li>
-          ))}
-      </ul>
-    </>
+    <ul className="flex-row">
+      {tasks.data?.tasks
+        .slice()
+        .reverse()
+        .map((task) => (
+          <li key={task.id}>
+            <Task task={task} />
+          </li>
+        ))}
+    </ul>
   );
 };
